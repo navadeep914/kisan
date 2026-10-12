@@ -10,7 +10,6 @@ const modules = [
   { icon:'🌦️', title:'Weather Forecast',     desc:'Analyze weather for farming decisions',        path:'/weather', color:'border-sky-400' },
   { icon:'🔁', title:'Crop Rotation',        desc:'Suggest optimal crop rotation sequences',      path:'/rotation',color:'border-teal-400' },
   { icon:'🏛️', title:'Government Schemes',   desc:'Find eligible schemes and subsidies',          path:'/schemes', color:'border-orange-400' },
-  { icon:'🤖', title:'AI Chatbot',           desc:'Multilingual agricultural assistant',          path:'/chatbot', color:'border-pink-400' },
 ]
 
 export default function Dashboard() {

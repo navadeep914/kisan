@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useApp } from './context/AppContext'
+import FarmerAdvisory from './pages/FarmerAdvisory.jsx'
 
 // Configure axios base path
 axios.defaults.baseURL = '';
@@ -16,7 +17,7 @@ const navItems = [
   { id: 'weather',   icon: '🌦️', label: 'Weather' },
   { id: 'rotation',  icon: '🔁', label: 'Crop Rotation' },
   { id: 'schemes',   icon: '🏛️', label: 'Gov Schemes' },
-  { id: 'chatbot',   icon: '🤖', label: 'AI Chatbot' },
+  { id: 'advisory',  icon: '🌾', label: 'Farmer Advisory' },
   { id: 'profile',   icon: '👤', label: 'Farmer Profile' },
 ]
 
@@ -32,7 +33,7 @@ const translations = {
     weather: "Weather Forecast",
     rotation: "Crop Rotation",
     schemes: "Gov Schemes",
-    chatbot: "AI Chatbot",
+    advisory: "Farmer Advisory",
     profile: "Farmer Profile",
     searchPlaceholder: "Search crops, diseases, schemes...",
     navTagline: "Navigation",
@@ -56,7 +57,6 @@ const translations = {
     seeForecast: "See Forecast",
     plan: "Plan",
     checkNow: "Check Now",
-    chatNow: "Chat Now",
     popular: "Popular",
     newAlerts: "new",
     backToDashboard: "Back to Dashboard",
@@ -173,7 +173,7 @@ const translations = {
     weather: "मौसम पूर्वानुमान",
     rotation: "फसल चक्र",
     schemes: "सरकारी योजनाएं",
-    chatbot: "एआई चैटबॉट",
+    advisory: "कृषक सलाहकार",
     profile: "कृषक प्रोफ़ाइल",
     searchPlaceholder: "फसलें, बीमारियां, योजनाएं खोजें...",
     navTagline: "नेविगेशन",
@@ -197,7 +197,6 @@ const translations = {
     seeForecast: "पूर्वानुमान देखें",
     plan: "योजना बनाएं",
     checkNow: "अभी जांचें",
-    chatNow: "अभी चैट करें",
     popular: "लोकप्रिय",
     newAlerts: "नया",
     backToDashboard: "डैशबोर्ड पर वापस जाएं",
@@ -314,7 +313,7 @@ const translations = {
     weather: "వాతావరణం",
     rotation: "పంట మార్పిడి",
     schemes: "ప్రభుత్వ పథకాలు",
-    chatbot: "AI చాట్‌బాట్",
+    advisory: "రైతు సలహాదారు",
     profile: "రైతు ప్రొఫైల్",
     searchPlaceholder: "పంటలు, వ్యాధులు, పథకాలు శోధించండి...",
     navTagline: "నావిగేషన్",
@@ -338,7 +337,6 @@ const translations = {
     seeForecast: "వాతావరణం చూడు",
     plan: "ప్రణాళిక చేయి",
     checkNow: "తనిఖీ చేయి",
-    chatNow: "చాట్ చేయి",
     popular: "ప్రసిద్ధ",
     newAlerts: "కొత్తవి",
     backToDashboard: "డాష్‌బోర్డ్‌కు తిరిగి వెళ్ళు",
@@ -455,7 +453,7 @@ const translations = {
     weather: "வானிலை முன்னறிவிப்பு",
     rotation: "பயிர் சுழற்சி",
     schemes: "அரசு திட்டங்கள்",
-    chatbot: "AI சாட்பாட்",
+    advisory: "விவசாய ஆலோசனை",
     profile: "விவசாயி சுயவிவரம்",
     searchPlaceholder: "பயிர்கள், நோய்கள், திட்டங்களைத் தேடுங்கள்...",
     navTagline: "வழிசெலுத்தல்",
@@ -479,7 +477,6 @@ const translations = {
     seeForecast: "வானிலை பார்",
     plan: "திட்டமிடு",
     checkNow: "சரிபார்",
-    chatNow: "சாட் செய்",
     popular: "பிரபலமான",
     newAlerts: "புதியது",
     backToDashboard: "டாஷ்போர்டுக்குத் திரும்பு",
@@ -768,7 +765,6 @@ function LandingPage({ onLoginClick, onRegisterClick }) {
             { icon: 'ti ti-cloud-rain', name: 'Weather forecast', desc: 'Rain, drought and farm alerts', color: '#1a6fac', bg: '#e8f6fd' },
             { icon: 'ti ti-refresh', name: 'Crop rotation', desc: 'Sustainable rotation plans', color: '#0b6e4f', bg: '#e8fdf5' },
             { icon: 'ti ti-building-bank', name: 'Govt schemes', desc: 'Subsidies you are eligible for', color: '#b94a1a', bg: '#fdeee8' },
-            { icon: 'ti ti-robot', name: 'AI chatbot', desc: 'Ask in your own language', color: '#b03060', bg: '#fde8f0' },
           ].map((mod, idx) => (
             <div key={idx} className="mod-card" onClick={onLoginClick}>
               <div className="mod-icon" style={{ background: mod.bg }}><i className={mod.icon} style={{ color: mod.color }} aria-hidden="true"></i></div>
@@ -1264,7 +1260,6 @@ function DashboardPage({ onNavigate, user }) {
           { id: 'weather', icon: '🌦️', bg: 'linear-gradient(135deg,#e0f2fe,#7dd3fc)', title: t('weather'), desc: language === 'hi' ? 'कृषि सलाह और अलर्ट के साथ 7 दिवसीय मौसम पूर्वानुमान' : language === 'te' ? 'వ్యవసాయ సలహాలు & హెచ్చరికలతో 7 రోజుల వాతావరణం' : language === 'ta' ? 'விவசாய ஆலோசனைகள் மற்றும் விழிப்பூட்டல்களுடன் 7 நாள் வானிலை' : '7-day forecast with farming advice & alerts', action: t('seeForecast') },
           { id: 'rotation', icon: '🔁', bg: 'linear-gradient(135deg,#ccfbf1,#5eead4)', title: t('rotation'), desc: language === 'hi' ? 'मृदा स्वास्थ्य के लिए फसल चक्र अनुसूची की योजना बनाएं' : language === 'te' ? 'నేల ఆరోగ్యం కోసం పంట మార్పిడి ప్రణాళికను సిద్ధం చేయండి' : language === 'ta' ? 'மண் ஆரோக்கியத்திற்காக பயிர் சுழற்சி அட்டவணையைத் திட்டமிடுங்கள்' : 'Plan rotation schedule for soil health', action: t('plan') },
           { id: 'schemes', icon: '🏛️', bg: 'linear-gradient(135deg,#ffedd5,#fed7aa)', title: t('schemes'), desc: language === 'hi' ? 'योजना पात्रता की जांच और आवेदन ट्रैकर' : language === 'te' ? 'పథకం అర్హత తనిఖీ & దరఖాస్తు ట్రాకర్' : language === 'ta' ? 'திட்ட தகுதி சரிபார்ப்பு மற்றும் விண்ணப்ப கண்காணிப்பு' : 'Eligibility check & application tracker', action: t('checkNow'), tag: language === 'hi' ? '3 नया' : language === 'te' ? '3 కొత్తవి' : language === 'ta' ? '3 புதியது' : '3 new' },
-          { id: 'chatbot', icon: '🤖', bg: 'linear-gradient(135deg,#fce7f3,#f9a8d4)', title: t('chatbot'), desc: language === 'hi' ? 'हिंदी, तेलुगु, तमिल और अंग्रेजी में कुछ भी पूछें' : language === 'te' ? 'తెలుగు, హిందీ, తమిళం మరియు ఇంగ్లీషులో ఏదైనా అడగండి' : language === 'ta' ? 'தமிழ், இந்தி, தெலுங்கு மற்றும் ஆங்கிலத்தில் எது வேண்டுமானாலும் கேளுங்கள்' : 'Ask anything in Hindi, Telugu, Tamil & more', action: t('chatNow') },
         ].map((m, i) => (
           <div key={i} className="module-card" onClick={() => m.id && onNavigate(m.id)} tabIndex={0} role="button">
             <div className="module-icon-wrap" style={{ background: m.bg }}>{m.icon}</div>
@@ -2361,7 +2356,6 @@ function SchemesPage() {
   )
 }
 
-// ─── CHATBOT MARKDOWN RENDERERS ────────────────────────────────
 function parseCodeMarkdown(text) {
   const parts = text.split('`');
   return parts.map((part, i) => {
@@ -2497,119 +2491,6 @@ function RenderMessage({ text }) {
   );
 }
 
-// ─── CHATBOT PAGE ───────────────────────────────────────────────
-function ChatbotPage() {
-  const { language } = useApp()
-  const [messages, setMessages] = useState([])
-  useEffect(() => {
-    const welcomeText = {
-      en: "Namaste! 🙏 I'm Krishi AI, your intelligent farming assistant. I can help with crop advice, disease identification, weather updates, and government schemes in Hindi, Telugu, Tamil, and English. How can I help you today?",
-      hi: "नमस्ते! 🙏 मैं कृषक एआई हूं, आपका बुद्धिमान कृषि सहायक। मैं हिंदी, तेलुगु, तमिल और अंग्रेजी में फसल सलाह, बीमारी की पहचान, मौसम अपडेट और सरकारी योजनाओं में मदद कर सकता हूं। आज मैं आपकी क्या मदद कर सकता हूं?",
-      te: "నమస్తే! 🙏 నేను కృషి AI, మీ తెలివైన వ్యవసాయ సహాయకుడిని. నేను తెలుగు, హిందీ, తమిళం మరియు ఇంగ్లీషులో పంట సలహా, వ్యాధి గుర్తింపు, వాతావరణ అప్‌డేట్లు మరియు ప్రభుత్వ పథకాలతో సహాయం చేయగలను. ఈ రోజు నేను మీకు ఎలా సహాయం చేయగలను?",
-      ta: "வணக்கம்! 🙏 நான் கிரிஷி AI, உங்கள் அறிவார்ந்த விவசாய உதவியாளர். இந்தி, தெலுங்கு, தமிழ் மற்றும் ஆங்கிலத்தில் பயிர் ஆலோசனை, நோய் கண்டறிதல், வானிலை அறிவிப்புகள் மற்றும் அரசு திட்டங்களுக்கு நான் உதவ முடியும். இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?"
-    };
-    setMessages([{ type: 'bot', text: welcomeText[language] || welcomeText['en'] }])
-  }, [language])
-  const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(false)
-  const messagesEnd = useRef(null)
-
-  const handleSend = async (textToSend) => {
-    const query = textToSend || input
-    if (!query.trim()) return
-
-    setMessages(prev => [...prev, { type: 'user', text: query }])
-    if (!textToSend) setInput('')
-    setLoading(true)
-
-    try {
-      const historyCtx = messages.slice(-4).map(m => ({
-        role: m.type === 'bot' ? 'assistant' : 'user',
-        content: m.text
-      }))
-
-      const res = await axios.post('/api/chatbot/predict', {
-        message: query,
-        history: historyCtx
-      })
-      setMessages(prev => [...prev, { type: 'bot', text: res.data.response }])
-    } catch (err) {
-      console.error(err)
-      setMessages(prev => [...prev, {
-        type: 'bot',
-        text: 'Sorry, I am facing connectivity issues. Please verify that the backend API server is running.'
-      }])
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const scrollToBottom = () => {
-    messagesEnd.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages, loading])
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
-      <div className="chat-wrap" style={{ flex: 1 }}>
-        <div className="chat-header">
-          <div className="chat-bot-info">
-            <div className="chat-bot-avatar">🤖</div>
-            <div>
-              <div className="chat-bot-name">Krishi AI Assistant</div>
-              <div className="chat-bot-status"><span className="status-dot" />Online</div>
-            </div>
-          </div>
-          <div style={{ display: 'flex', gap: 6 }}>
-            <div className="icon-btn" onClick={() => alert('Krishi AI supports responses in English, Telugu, Hindi, Tamil, and Kannada.')}>🌐</div>
-            <div className="icon-btn" onClick={() => {
-              if (window.confirm('Reset chat conversation?')) {
-                setMessages([{ type: 'bot', text: 'Namaste! 🙏 I\'m Krishi AI, your intelligent farming assistant. How can I help you today?' }])
-              }
-            }}>🗑️</div>
-          </div>
-        </div>
-        <div className="chat-messages" style={{ overflowY: 'auto' }}>
-          {messages.map((m, i) => (
-            <div key={i} className={`msg ${m.type}`}>
-              <div className="msg-avatar">{m.type === 'bot' ? '🤖' : 'N'}</div>
-              <div className="msg-bubble" style={{ wordBreak: 'break-word' }}>
-                <RenderMessage text={m.text} />
-              </div>
-            </div>
-          ))}
-          {loading && (
-            <div className="msg bot">
-              <div className="msg-avatar">🤖</div>
-              <div className="msg-bubble typing">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          )}
-          <div ref={messagesEnd} />
-        </div>
-        <div className="quick-chips">
-          {['🌾 What can this website do?', '🪱 Tell me about Soil Analysis', '🌦️ Explain Weather Forecast', '🏛️ PM-KISAN eligibility'].map(c => (
-            <span key={c} className="chip" onClick={() => handleSend(c)}>{c}</span>
-          ))}
-        </div>
-        <div className="chat-input-row">
-          <input className="chat-input" placeholder="Ask anything about farming or the portal…" value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSend()} />
-          <button className="chat-send-btn" onClick={() => handleSend()}>➤</button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ─── PROFILE PAGE ───────────────────────────────────────────────
 function ProfilePage({ user, onLogout, onProfileUpdate }) {
   const { language } = useApp()
   const t = (key) => translations[language]?.[key] || translations['en'][key] || key
@@ -2828,140 +2709,6 @@ function ProfilePage({ user, onLogout, onProfileUpdate }) {
   )
 }
 
-// ─── FLOATING CHATBOT WIDGET ───────────────────────────────────
-function FloatingChatbotWidget({ language, user }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState([])
-  const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(false)
-  const messagesEnd = useRef(null)
-
-  const welcomeText = {
-    en: "Namaste! 🙏 I'm Krishi AI, your floating assistant. How can I help you today?",
-    hi: "नमस्ते! 🙏 मैं आपका सहायक हूँ। आज मैं आपकी क्या मदद कर सकता हूँ?",
-    te: "నమస్తే! 🙏 నేను కృషి AI, మీ సహాయకుడిని. ఈ రోజు నేను మీకు ఎలా సహాయం చేయగలను?",
-    ta: "வணக்கம்! 🙏 நான் கிரிஷி AI, உங்கள் உதவியாளர். இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?"
-  };
-
-  const widgetChips = {
-    en: ['🌾 Site features', '🪱 Soil guide', '🌦️ Weather help', '🏛️ PM-KISAN'],
-    hi: ['🌾 वेबसाइट सुविधाएँ', '🪱 मृदा गाइड', '🌦️ मौसम सहायता', '🏛️ पीएम-किसान'],
-    te: ['🌾 సైట్ ఫీచర్లు', '🪱 మట్టి మార్గదర్శి', '🌦️ వాతావరణ సహాయం', '🏛️ పీఎం-కిసాన్'],
-    ta: ['🌾 தளத்தின் அம்சங்கள்', '🪱 மண் வழிகாட்டி', '🌦️ வானிலை உதவி', '🏛️ பிரதம மந்திரி கிசான்']
-  };
-
-  const inputPlaceholder = {
-    en: "Ask Krishi AI...",
-    hi: "कृषक एआई से पूछें...",
-    te: "కృషి AI ని అడగండి...",
-    ta: "கிரிஷி AI-யிடம் கேளுங்கள்..."
-  };
-
-  useEffect(() => {
-    if (messages.length === 0) {
-      setMessages([{ type: 'bot', text: welcomeText[language] || welcomeText['en'] }]);
-    }
-  }, [language, isOpen])
-
-  const handleSend = async (textToSend) => {
-    const query = textToSend || input;
-    if (!query.trim()) return;
-
-    setMessages(prev => [...prev, { type: 'user', text: query }]);
-    if (!textToSend) setInput('');
-    setLoading(true);
-
-    try {
-      const historyCtx = messages.slice(-4).map(m => ({
-        role: m.type === 'bot' ? 'assistant' : 'user',
-        content: m.text
-      }));
-
-      const res = await axios.post('/api/chatbot/predict', {
-        message: query,
-        history: historyCtx
-      });
-      setMessages(prev => [...prev, { type: 'bot', text: res.data.response }]);
-    } catch (err) {
-      console.error(err);
-      const errorMsg = {
-        en: 'Sorry, I am facing connectivity issues.',
-        hi: 'क्षमा करें, मुझे कनेक्टिविटी समस्याओं का सामना करना पड़ रहा है।',
-        te: 'కనెక్టివిటీ సమస్యలు ఉన్నాయి.',
-        ta: 'இணைப்பு சிக்கல்கள் உள்ளன.'
-      };
-      setMessages(prev => [...prev, { type: 'bot', text: errorMsg[language] || errorMsg['en'] }]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const scrollToBottom = () => {
-    messagesEnd.current?.scrollIntoView({ behavior: 'smooth' })
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
-    }
-  }, [messages, loading, isOpen]);
-
-  if (!isOpen) {
-    return (
-      <button className="chat-widget-btn" onClick={() => setIsOpen(true)} aria-label="Open chat assistant">
-        🤖
-      </button>
-    );
-  }
-
-  return (
-    <>
-      <div className="chat-widget-panel">
-        <div className="chat-widget-header">
-          <div className="chat-widget-title">🤖 {translations[language]?.chatbot || 'AI Chatbot'}</div>
-          <button className="chat-widget-close" onClick={() => setIsOpen(false)}>✕</button>
-        </div>
-        <div className="chat-widget-messages">
-          {messages.map((m, i) => (
-            <div key={i} className={`chat-widget-msg ${m.type}`}>
-              <div className="msg-avatar">{m.type === 'bot' ? '🤖' : 'U'}</div>
-              <div className="msg-bubble">
-                <RenderMessage text={m.text} />
-              </div>
-            </div>
-          ))}
-          {loading && (
-            <div className="chat-widget-msg bot">
-              <div className="msg-avatar">🤖</div>
-              <div className="msg-bubble typing" style={{ padding: '10px 12px' }}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          )}
-          <div ref={messagesEnd} />
-        </div>
-        <div className="chat-widget-chips">
-          {(widgetChips[language] || widgetChips['en']).map(c => (
-            <span key={c} className="chip" onClick={() => handleSend(c)}>{c}</span>
-          ))}
-        </div>
-        <div className="chat-widget-input-row">
-          <input className="chat-widget-input" placeholder={inputPlaceholder[language] || inputPlaceholder['en']} value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSend()} />
-          <button className="chat-widget-send-btn" onClick={() => handleSend()}>➤</button>
-        </div>
-      </div>
-      <button className="chat-widget-btn open" onClick={() => setIsOpen(false)} aria-label="Close chat assistant">
-        ✕
-      </button>
-    </>
-  );
-}
-
-// ─── MAIN APP ───────────────────────────────────────────────────
 export default function App() {
   const { language, setLanguage } = useApp()
   const [showLangDropdown, setShowLangDropdown] = useState(false)
@@ -3017,7 +2764,7 @@ export default function App() {
       case 'weather':   return <WeatherPage />
       case 'rotation':  return <RotationPage />
       case 'schemes':   return <SchemesPage />
-      case 'chatbot':   return <ChatbotPage />
+      case 'advisory':  return <FarmerAdvisory farmerId={user?.id} />
       case 'profile':   return <ProfilePage user={user} onLogout={handleLogout} onProfileUpdate={setUser} />
       default:          return <DashboardPage onNavigate={setActivePage} user={user} />
     }
@@ -3140,7 +2887,6 @@ export default function App() {
           {renderPage()}
         </main>
       </div>
-      <FloatingChatbotWidget language={language} user={user} />
     </div>
   )
 }

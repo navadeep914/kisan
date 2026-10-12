@@ -9,7 +9,6 @@ import MarketPrice       from '../pages/MarketPrice'
 import Weather           from '../pages/Weather'
 import CropRotation      from '../pages/CropRotation'
 import GovSchemes        from '../pages/GovSchemes'
-import Chatbot           from '../pages/Chatbot'
 import Navbar            from '../components/Navbar'
 
 export default function AppRoutes() {
@@ -26,7 +25,6 @@ export default function AppRoutes() {
         <Route path="/weather"   element={<Weather />} />
         <Route path="/rotation"  element={<CropRotation />} />
         <Route path="/schemes"   element={<GovSchemes />} />
-        <Route path="/chatbot"   element={<Chatbot />} />
       </Routes>
     </>
   )

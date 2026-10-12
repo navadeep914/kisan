@@ -5,6 +5,7 @@ __pycache__/
 *.h5
 *.pt
 .env
+.venv/
 venv/
 *.egg-info/
 
@@ -16,6 +17,7 @@ dist/
 # Data
 datasets/*.csv
 *.log
+/backend/data/
 
 # IDE
 .vscode/

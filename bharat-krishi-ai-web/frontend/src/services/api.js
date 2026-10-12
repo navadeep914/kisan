@@ -13,6 +13,5 @@ export const yieldAPI   = { predict: data => API.post('/yield/predict', data) }
 export const marketAPI  = { predict: data => API.post('/market/predict', data) }
 export const weatherAPI = { predict: data => API.post('/weather/predict', data) }
 export const schemesAPI = { search: data => API.post('/schemes/predict', data) }
-export const chatAPI    = { send:   data => API.post('/chatbot/predict', data) }
 
 export default API

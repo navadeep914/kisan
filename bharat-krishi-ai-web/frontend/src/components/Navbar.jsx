@@ -11,7 +11,6 @@ const navItems = [
   { path: '/weather',  label: '🌦️ Weather' },
   { path: '/rotation', label: '🔁 Rotation' },
   { path: '/schemes',  label: '🏛️ Schemes' },
-  { path: '/chatbot',  label: '🤖 Chatbot' },
 ]
 
 export default function Navbar() {

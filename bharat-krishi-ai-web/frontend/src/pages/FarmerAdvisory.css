@@ -1,0 +1,427 @@
+.farmer-advisory-page {
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.fa-hero {
+  align-items: center;
+  background: linear-gradient(120deg, #174b35, #2d8058);
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  gap: 18px;
+  padding: 22px 26px;
+}
+
+.fa-hero-icon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  display: flex;
+  flex: 0 0 58px;
+  font-size: 30px;
+  height: 58px;
+  justify-content: center;
+}
+
+.fa-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  margin-bottom: 5px;
+  opacity: 0.72;
+}
+
+.fa-hero h1 {
+  font-size: clamp(21px, 3vw, 28px);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.fa-hero p:last-child {
+  font-size: 13px;
+  margin-top: 5px;
+  opacity: 0.88;
+}
+
+.fa-layout {
+  align-items: start;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.85fr);
+}
+
+.fa-primary,
+.fa-sidebar {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.fa-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(20, 50, 32, 0.045);
+  color: var(--charcoal);
+  padding: 19px;
+}
+
+.fa-card h2 {
+  font-size: 16px;
+  margin: 0 0 14px;
+}
+
+.fa-card-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 11px;
+}
+
+.fa-question-card textarea,
+.fa-profile-card input,
+.fa-voice-select select {
+  background: var(--page-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--charcoal);
+  font: inherit;
+  outline: none;
+}
+
+.fa-question-card textarea {
+  display: block;
+  line-height: 1.55;
+  padding: 13px 14px;
+  resize: vertical;
+  width: 100%;
+}
+
+.fa-question-card textarea:focus,
+.fa-profile-card input:focus,
+.fa-voice-select select:focus {
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.14);
+}
+
+.fa-question-card textarea::placeholder {
+  color: var(--gray);
+  opacity: 0.8;
+}
+
+.fa-controls,
+.fa-actions,
+.fa-voice-select {
+  align-items: center;
+  display: flex;
+}
+
+.fa-controls {
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  margin-top: 13px;
+}
+
+.fa-voice-select {
+  color: var(--gray);
+  flex-wrap: wrap;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.fa-voice-select select {
+  padding: 8px 10px;
+}
+
+.fa-actions {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fa-button {
+  align-items: center;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 7px;
+  justify-content: center;
+  min-height: 42px;
+  padding: 9px 15px;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.fa-button:hover:not(:disabled) {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
+}
+
+.fa-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.fa-mic,
+.fa-read {
+  background: var(--green-pale);
+  color: var(--green);
+}
+
+.fa-mic.is-listening {
+  background: #fff0ed;
+  color: #b42318;
+}
+
+.fa-read.is-speaking {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+.fa-history-speak {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-left: auto;
+  opacity: 0.75;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.fa-history-speak:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.fa-submit,
+.fa-profile-save {
+  background: var(--green);
+  color: #fff;
+}
+
+.fa-profile-save {
+  width: 100%;
+}
+
+.fa-live-status {
+  color: #b42318;
+  font-size: 12px;
+  margin-top: 9px;
+}
+
+.fa-input-kind {
+  color: var(--gray);
+  font-size: 11px;
+  margin-top: 9px;
+}
+
+.fa-message {
+  border-radius: 9px;
+  font-size: 13px;
+  padding: 11px 13px;
+}
+
+.fa-error {
+  background: #fff0ed;
+  color: #9d251c;
+}
+
+.fa-success {
+  background: #e8f7ed;
+  color: #1b6b3e;
+}
+
+.fa-answer-heading {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.fa-answer-heading h2 {
+  margin-bottom: 0;
+}
+
+.fa-answer-text {
+  background: var(--green-pale);
+  border-radius: 10px;
+  line-height: 1.75;
+  margin: 16px 0;
+  padding: 15px;
+  white-space: pre-wrap;
+}
+
+.fa-parsed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.fa-tag,
+.fa-source,
+.fa-history-source {
+  background: var(--page-bg);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  font-size: 11px;
+  padding: 6px 9px;
+}
+
+.fa-tag b {
+  color: var(--green);
+}
+
+.fa-source-list {
+  border-top: 1px solid var(--border);
+  margin-top: 17px;
+  padding-top: 13px;
+}
+
+.fa-source-list h3 {
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+
+.fa-source-list > p {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+.fa-source {
+  display: inline-flex;
+  gap: 6px;
+  margin: 0 6px 6px 0;
+}
+
+.fa-source small {
+  color: var(--green);
+}
+
+.fa-profile-card label {
+  color: var(--gray);
+  display: block;
+  font-size: 11px;
+  margin-bottom: 11px;
+}
+
+.fa-profile-card input {
+  display: block;
+  margin-top: 5px;
+  padding: 10px 11px;
+  width: 100%;
+}
+
+.fa-history-list {
+  list-style: none;
+  margin: 0;
+  max-height: 450px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.fa-history-list li {
+  border-top: 1px solid var(--border);
+  padding: 12px 0;
+}
+
+.fa-history-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.fa-history-meta {
+  align-items: center;
+  color: var(--gray);
+  display: flex;
+  font-size: 10px;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.fa-history-query {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 7px 0;
+}
+
+.fa-history-answer {
+  color: var(--gray);
+  display: -webkit-box;
+  font-size: 11px;
+  line-height: 1.55;
+  margin: 0 0 7px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.fa-history-source {
+  color: var(--green);
+  display: inline-block;
+  font-size: 9px;
+  margin: 0 4px 4px 0;
+  padding: 4px 7px;
+}
+
+.fa-empty-history {
+  color: var(--gray);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .fa-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fa-sidebar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .farmer-advisory-page {
+    padding: 14px;
+  }
+
+  .fa-hero {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 17px;
+  }
+
+  .fa-hero-icon {
+    flex-basis: 42px;
+    font-size: 23px;
+    height: 42px;
+  }
+
+  .fa-sidebar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fa-controls,
+  .fa-actions {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .fa-actions > .fa-button {
+    flex: 1;
+  }
+
+  .fa-voice-select {
+    justify-content: space-between;
+    width: 100%;
+  }
+}

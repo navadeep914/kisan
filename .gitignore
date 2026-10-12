@@ -1,0 +1,30 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pkl
+*.h5
+*.pt
+*.db
+*.sqlite3
+
+# Environment & Credentials
+.env
+.env.*
+!.env.example
+
+# Node / Frontend
+node_modules/
+dist/
+.cache/
+
+# Logs & System
+*.log
+.DS_Store
+.vscode/
+.idea/
