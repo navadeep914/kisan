@@ -50,11 +50,26 @@ app = FastAPI(
 # CORS configuration
 # --------------------------------------------------
 
-# For production, replace "*" with your actual frontend
-# origin(s), especially if using credentialed requests.
+# Add additional frontend origins in Render's environment
+# variable FRONTEND_ORIGINS, separated by commas if needed.
+default_origins = [
+    "https://kisan-six-azure.vercel.app",
+    "http://localhost:5173",
+]
+
+configured_origins = os.getenv("FRONTEND_ORIGINS", "")
+
+frontend_origins = [
+    origin.strip().rstrip("/")
+    for origin in configured_origins.split(",")
+    if origin.strip()
+]
+
+allowed_origins = list(dict.fromkeys(default_origins + frontend_origins))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -127,12 +142,13 @@ app.include_router(
 
 
 # --------------------------------------------------
-# Startup
+# Startup and database initialization
 # --------------------------------------------------
 
 @app.on_event("startup")
 async def startup_event():
     logger.info("Starting Bharat Krishi AI backend")
+    logger.info("Allowed frontend origins: %s", allowed_origins)
 
     try:
         logger.info("Initializing database")
@@ -140,7 +156,10 @@ async def startup_event():
         logger.info("Database initialization completed successfully")
 
     except Exception:
-        logger.exception("Database initialization failed")
+        logger.exception(
+            "Database initialization failed. "
+            "Check database credentials and connectivity."
+        )
         raise
 
     logger.info("Bharat Krishi AI startup completed")
@@ -174,7 +193,7 @@ async def api_root():
 
 
 # --------------------------------------------------
-# Serve frontend production build, if available
+# Serve frontend build if present
 # --------------------------------------------------
 
 backend_directory = Path(__file__).resolve().parent
@@ -184,7 +203,7 @@ frontend_dist = project_directory / "frontend" / "dist"
 if frontend_dist.is_dir():
     logger.info("Frontend build found at %s", frontend_dist)
 
-    # Keep this mount after API route registration.
+    # Keep this mount AFTER every API route.
     app.mount(
         "/",
         StaticFiles(directory=str(frontend_dist), html=True),
@@ -193,7 +212,7 @@ if frontend_dist.is_dir():
 
 else:
     logger.warning(
-        "Frontend build not found at %s; serving API root instead",
+        "Frontend build not found at %s; serving API only",
         frontend_dist,
     )
 
