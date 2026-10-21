@@ -1,17 +1,10 @@
-
 import axios from "axios";
-
-// Configure the backend origin in Vercel:
-// VITE_API_BASE_URL=https://bharat-krishi-ai.onrender.com
 
 const API_ORIGIN = (
   import.meta.env.VITE_API_BASE_URL ||
   "http://127.0.0.1:8000"
 ).replace(/\/+$/, "");
 
-// Add /api exactly once.
-// Final production API example:
-// https://bharat-krishi-ai.onrender.com/api/auth/register
 const API = axios.create({
   baseURL: `${API_ORIGIN}/api`,
   timeout: 30000,
@@ -20,83 +13,68 @@ const API = axios.create({
   },
 });
 
-// Convert registration form fields to the fields expected by
-// backend/app/schemas/auth_schema.py.
+// Authentication endpoints
 export const authAPI = {
   register: (form = {}) => {
-    const firstName = form.firstName ?? form.first_name ?? "";
-    const lastName = form.lastName ?? form.last_name ?? "";
+    const firstName = form.firstName || form.first_name || "";
+    const lastName = form.lastName || form.last_name || "";
 
     const phone = String(
-      form.phone ??
-        form.mobileNumber ??
-        form.mobile ??
-        form.mobile_number ??
-        ""
+      form.phone ||
+      form.mobileNumber ||
+      form.mobile_number ||
+      form.mobile ||
+      ""
     ).trim();
 
-    const email = String(form.email ?? "").trim();
+    const email = String(form.email || "").trim();
+    const username = String(form.username || email || phone).trim();
 
-    const username = String(
-      form.username || email || phone
-    ).trim();
-
-    const fullName = String(
+    const name = String(
       form.name || `${firstName} ${lastName}`.trim()
     ).trim();
 
     if (!username) {
-      return Promise.reject(
-        new Error("Enter an email address or mobile number.")
-      );
+      throw new Error("Enter a mobile number or email address.");
     }
 
     if (!form.password) {
-      return Promise.reject(
-        new Error("Enter a password.")
-      );
+      throw new Error("Enter a password.");
     }
 
     return API.post("/auth/register", {
       username,
       password: form.password,
-      name: fullName || username,
+      name: name || username,
       phone,
       state: form.state || "Telangana",
     });
   },
 
-  login: (form = {}) => {
-    const username = String(
-      form.username ||
+  login: (form = {}) =>
+    API.post("/auth/login", {
+      username: String(
+        form.username ||
         form.email ||
         form.phone ||
         form.mobileNumber ||
         ""
-    ).trim();
-
-    return API.post("/auth/login", {
-      username,
+      ).trim(),
       password: form.password,
-    });
-  },
+    }),
 
   me: (token) =>
     API.get("/auth/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     }),
 
-  updateProfile: (data, token) =>
-    API.post("/auth/profile/update", data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  history: (token) =>
+    API.get("/auth/history", {
+      headers: { Authorization: `Bearer ${token}` },
     }),
 };
 
-// Keep the existing API exports so other project features continue to work.
+// Preserve existing exports used by the other application modules.
 export const cropAPI = {
   predict: (data) => API.post("/crop/predict", data),
 };
@@ -104,9 +82,7 @@ export const cropAPI = {
 export const diseaseAPI = {
   detect: (formData) =>
     API.post("/disease/predict", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: { "Content-Type": "multipart/form-data" },
     }),
 };
 

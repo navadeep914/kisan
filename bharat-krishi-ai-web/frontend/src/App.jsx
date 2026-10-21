@@ -944,15 +944,25 @@ function AuthPage({ onAuthSuccess, onGuestMode, defaultTab, onBackToHome }) {
       };
       
       const response = await authAPI.register(payload);
-      console.log("Registration response:", response.data);
+
+      console.log("Registration successful:", response.data);
+
       // Store token in state but go to success page first!
       setRegStep('success');
       // Save details locally so we can proceed later
       localStorage.setItem('tempToken', response.data.token);
       localStorage.setItem('tempUser', JSON.stringify(response.data.user));
-    } catch (err) {
-      console.error(err);
-      setRegErr(err.response?.data?.detail || 'Registration failed. Mobile might already be registered.');
+    } catch (error) {
+      console.error("Registration error:", {
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+
+      setRegErr(
+        error.response?.data?.detail ||
+        error.message ||
+        "Registration failed. Please try again."
+      );
       setRegStep(1); // go back to fix
     } finally {
       setRegLoading(false);
