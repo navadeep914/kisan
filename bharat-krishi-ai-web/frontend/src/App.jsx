@@ -4,14 +4,14 @@ import { useApp } from './context/AppContext'
 import FarmerAdvisory from './pages/FarmerAdvisory.jsx'
 import { authAPI } from './services/api'
 
-const API_ORIGIN = (
+// Configure Axios for local development and production.
+const APP_API_ORIGIN = (
   import.meta.env.VITE_API_BASE_URL ||
   (import.meta.env.DEV
     ? "http://127.0.0.1:8000"
     : "https://bharat-krishi-ai.onrender.com")
 ).replace(/\/+$/, "");
-
-axios.defaults.baseURL = API_ORIGIN;
+axios.defaults.baseURL = APP_API_ORIGIN;
 
 // ─── SIDEBAR NAV ITEMS ──────────────────────────────────────────
 const navItems = [
