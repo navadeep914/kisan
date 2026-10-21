@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useApp } from './context/AppContext'
 import FarmerAdvisory from './pages/FarmerAdvisory.jsx'
+import { authAPI } from './services/api'
 
 // Configure axios base path
 axios.defaults.baseURL = '';
@@ -942,12 +943,13 @@ function AuthPage({ onAuthSuccess, onGuestMode, defaultTab, onBackToHome }) {
         state: rState
       };
       
-      const res = await axios.post('/api/auth/register', payload);
+      const response = await authAPI.register(payload);
+      console.log("Registration response:", response.data);
       // Store token in state but go to success page first!
       setRegStep('success');
       // Save details locally so we can proceed later
-      localStorage.setItem('tempToken', res.data.token);
-      localStorage.setItem('tempUser', JSON.stringify(res.data.user));
+      localStorage.setItem('tempToken', response.data.token);
+      localStorage.setItem('tempUser', JSON.stringify(response.data.user));
     } catch (err) {
       console.error(err);
       setRegErr(err.response?.data?.detail || 'Registration failed. Mobile might already be registered.');
