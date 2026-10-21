@@ -4,8 +4,14 @@ import { useApp } from './context/AppContext'
 import FarmerAdvisory from './pages/FarmerAdvisory.jsx'
 import { authAPI } from './services/api'
 
-// Configure axios base path
-axios.defaults.baseURL = '';
+const API_ORIGIN = (
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV
+    ? "http://127.0.0.1:8000"
+    : "https://bharat-krishi-ai.onrender.com")
+).replace(/\/+$/, "");
+
+axios.defaults.baseURL = API_ORIGIN;
 
 // ─── SIDEBAR NAV ITEMS ──────────────────────────────────────────
 const navItems = [
